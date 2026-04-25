@@ -1,0 +1,90 @@
+# ──────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Distribuição / empacotamento
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# Pytest / testes
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Mypy / type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ──────────────────────────────────────────
+# Jupyter Notebooks
+# ──────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_meta
+
+# ──────────────────────────────────────────
+# Variáveis de ambiente / segredos
+# ──────────────────────────────────────────
+.env
+.env.*
+*.env
+secrets.yaml
+secrets.json
+credentials.json
+service_account*.json
+
+# ──────────────────────────────────────────
+# IDEs e editores
+# ──────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ──────────────────────────────────────────
+# Sistemas operacionais
+# ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────────────────
+# Logs e arquivos temporários
+# ──────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.cache
+
+# ──────────────────────────────────────────
+# Dados grandes / modelos (opcional)
+# ──────────────────────────────────────────
+*.csv
+*.parquet
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.bin
+*.onnx
+*.pt
+*.pth
