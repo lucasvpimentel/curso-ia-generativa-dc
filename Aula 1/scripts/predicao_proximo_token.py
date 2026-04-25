@@ -1,48 +1,65 @@
 """
-🚀 Script: Predição do Próximo Token
-Este script demonstra o conceito de Causal Language Modeling (LLMs auto-regressivas).
-O objetivo é mostrar como modelos como o GPT-2 prevêem a próxima palavra com base na probabilidade.
+🚀 Script: Predição do Próximo Token (Versão Comunicativa)
+Demonstração de como modelos de linguagem prevêem a próxima palavra.
 """
 
+import os
+import warnings
+import logging
 from transformers import pipeline, set_seed
 
-def gerar_texto(prompt, max_tokens=30):
-    """
-    Função que carrega o modelo e gera a continuação de um texto.
-    """
-    print(f"\n--- Iniciando Geração ---")
-    print(f"Prompt Inicial: '{prompt}'\n")
+# --- Configuração para Silenciar Logs Técnicos ---
+# 1. Silencia avisos do Python (como os de depreciação)
+warnings.filterwarnings("ignore")
+# 2. Silencia logs internos da biblioteca Transformers
+logging.getLogger("transformers").setLevel(logging.ERROR)
+# 3. Silencia logs do sistema de cache do Hugging Face
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3" 
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
-    # O 'pipeline' é a forma mais simples de usar modelos do Hugging Face.
-    # 'text-generation' configura o modelo para prever tokens subsequentes.
-    # O modelo 'gpt2' é leve (aprox. 500MB) e ideal para demonstrações rápidas.
-    print("Aguarde: Carregando modelo GPT-2...")
-    gerador = pipeline('text-generation', model='gpt2')
-    
-    # Definimos uma seed (semente) para que o resultado seja o mesmo em todas as execuções.
-    # Isso é importante em contextos educacionais para garantir reprodutibilidade.
-    set_seed(42)
+def gerar_texto(prompt):
+    print("\n" + "="*40)
+    print("🤖 IA GENERATIVA EM AÇÃO")
+    print("="*40)
+    print(f"📌 Seu prompt: '{prompt}'")
+    print("\n⏳ Pensando na continuação... (Carregando modelo)")
 
-    # Execução da geração:
-    # - max_length: tamanho máximo total da sequência (prompt + geração).
-    # - num_return_sequences: quantas variantes de resposta o modelo deve criar.
-    # - truncation=True: garante que o texto não ultrapasse os limites do modelo.
-    resultado = gerador(prompt, max_length=max_tokens, num_return_sequences=1, truncation=True)
+    try:
+        # Carregamos o modelo de forma simplificada
+        gerador = pipeline('text-generation', model='gpt2', device=-1) # device=-1 força uso de CPU
+        
+        # Semente para resultados consistentes
+        set_seed(42)
 
-    print("Texto Gerado:")
-    # O resultado vem como uma lista de dicionários. Acessamos a chave 'generated_text'.
-    print(resultado[0]['generated_text'])
-    print(f"-------------------------\n")
+        # Geração do texto:
+        # Ajustamos os parâmetros para evitar conflitos de 'max_length'
+        resultado = gerador(
+            prompt, 
+            max_new_tokens=50,    # Gera até 50 novas palavras além do seu prompt
+            num_return_sequences=1, 
+            pad_token_id=50256,   # Define o token de parada explicitamente (evita avisos)
+            do_sample=True,       # Permite criatividade na escolha das palavras
+            top_k=50,             # Filtra as 50 palavras mais prováveis
+            top_p=0.95            # Melhora a coerência do texto
+        )
+
+        print("\n✨ TEXTO GERADO:")
+        print("-" * 40)
+        print(resultado[0]['generated_text'])
+        print("-" * 40)
+        print("\n✅ Processo concluído com sucesso!")
+
+    except Exception as e:
+        print(f"\n❌ Ocorreu um erro inesperado: {e}")
 
 if __name__ == "__main__":
-    # Interface simples via terminal para interação do aluno.
-    # Se o usuário apenas der Enter, usamos uma frase padrão.
+    print("Bem-vindo ao Simulador de IA Generativa!")
     try:
-        entrada = input("Digite o início de uma frase em inglês (ou Enter para o padrão): ")
+        entrada = input("Digite o início de uma frase (em inglês): ").strip()
     except EOFError:
         entrada = ""
         
     if not entrada:
-        entrada = "The future of Artificial Intelligence is"
+        entrada = "Artificial Intelligence is the"
     
     gerar_texto(entrada)

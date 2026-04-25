@@ -16,17 +16,83 @@ Para entender a revolução atual, precisamos distinguir dois paradigmas:
 3.  **2017 - O Marco (Transformer):** Publicação do artigo *"Attention Is All You Need"*. Surge a arquitetura que eliminou a necessidade de recorrência, permitindo o processamento paralelo e o mecanismo de **Self-Attention**.
 4.  **Hoje - A Era dos LLMs:** Modelos com bilhões de parâmetros (GPT-4, Llama 3, Claude) que demonstram capacidades emergentes de raciocínio e síntese de conhecimento.
 
-## 🛠️ Setup do Projeto
+## 🛠️ Guia de Execução Passo a Passo
 
-Para rodar os exemplos deste repositório, recomendamos o uso de um ambiente virtual Python (Conda ou venv).
+Siga estas instruções para configurar o ambiente e rodar os códigos de demonstração.
+
+### 0. Clonar apenas a Aula 1 (opcional)
+
+Se quiser baixar somente esta pasta, sem o restante do repositório, use o **sparse-checkout**:
 
 ```bash
-# Crie o ambiente virtual
+# 1. Clone o repositório sem baixar os arquivos ainda
+git clone --filter=blob:none --no-checkout <url-do-repositorio> ia-generativa
+cd ia-generativa
+
+# 2. Ative o sparse-checkout e defina a pasta desejada
+git sparse-checkout init --cone
+git sparse-checkout set "Aula 1"
+
+# 3. Finalize o checkout
+git checkout main
+```
+
+Após esses comandos, somente a pasta `Aula 1/` estará disponível localmente.
+
+---
+
+### 1. Configuração do Ambiente (Setup)
+
+No terminal, dentro da pasta raiz do projeto, execute:
+
+```bash
+# 1. Criar o ambiente virtual (isolamento de bibliotecas)
 python -m venv .venv
 
-# Ative o ambiente (Windows)
+# 2. Ativar o ambiente virtual (Windows)
 .\.venv\Scripts\activate
 
-# Instale as dependências
+# 3. Instalar as bibliotecas necessárias
 pip install -r requirements.txt
 ```
+
+---
+
+### 2. Executando o Script de Geração (Predição de Próximo Token)
+
+Este script demonstra como um modelo "completa" frases de forma probabilística.
+
+```bash
+# Com o ambiente ativado, execute:
+python scripts/predicao_proximo_token.py
+```
+
+*   **O que esperar:** Na primeira vez, o script baixará cerca de 500MB de dados (pesos do GPT-2). Após o download, ele pedirá para você digitar uma frase em inglês. Experimente frases como *"The future of tech is"* ou *"Machine Learning can"*.
+
+---
+
+### 3. Executando o Notebook (Embeddings)
+
+O notebook permite visualizar como as palavras são transformadas em vetores matemáticos.
+
+**Opção A: No VS Code (Recomendado)**
+1. Abra o arquivo `notebooks/01_bert_e_embeddings.ipynb`.
+2. No canto superior direito, clique em **"Select Kernel"**.
+3. Escolha **"Python Environments..."** e selecione o ambiente que aponta para o seu `.venv`.
+4. Clique em "Run All" ou execute célula por célula.
+
+**Opção B: Via Jupyter Lab (Navegador)**
+```bash
+# Execute no terminal:
+jupyter lab
+```
+Isso abrirá uma interface no seu navegador. Navegue até a pasta `notebooks` e execute o arquivo.
+
+---
+
+## 💡 Recomendações e Observações Importantes
+
+1.  **Primeira Execução e Internet:** Tanto o script quanto o notebook fazem download de modelos da nuvem (Hugging Face) na primeira vez que são rodados. Certifique-se de ter uma conexão estável. Após o primeiro download, eles funcionarão offline.
+2.  **Idioma dos Modelos:** O BERT e o GPT-2 utilizados nestes exemplos foram treinados majoritariamente em **inglês**. Para melhores resultados, utilize prompts em inglês.
+3.  **Memória RAM:** Os modelos utilizados são versões "base" (leves), consumindo cerca de 1GB a 1.5GB de RAM. Eles rodam tranquilamente em computadores modernos sem necessidade de placa de vídeo (GPU) dedicada.
+4.  **Uso em Aula:** Recomendamos rodar o script de predição pelo menos uma vez antes da aula para que os alunos não percam tempo esperando o download dos modelos durante a explicação.
