@@ -16,6 +16,22 @@ Para entender a revolução atual, precisamos distinguir dois paradigmas:
 3.  **2017 - O Marco (Transformer):** Publicação do artigo *"Attention Is All You Need"*. Surge a arquitetura que eliminou a necessidade de recorrência, permitindo o processamento paralelo e o mecanismo de **Self-Attention**.
 4.  **Hoje - A Era dos LLMs:** Modelos com bilhões de parâmetros (GPT-4, Llama 3, Claude) que demonstram capacidades emergentes de raciocínio e síntese de conhecimento.
 
+---
+
+## 🏗️ Arquitetura Transformer: O Motor da GenAI
+
+O grande diferencial do Transformer é o mecanismo de **Self-Attention** (Auto-Atenção), que permite ao modelo focar nas partes mais importantes de uma frase, independentemente da distância entre as palavras.
+
+### O Mecanismo Q, K, V (Analogia da Biblioteca)
+Para entender como o modelo "pensa" a relevância de cada termo, utilizamos a analogia de uma busca em biblioteca:
+*   **Query (Q):** O que você está procurando (ex: "Qual o contexto desta palavra?").
+*   **Key (K):** A etiqueta na lombada do livro (o índice que diz o que cada palavra oferece).
+*   **Value (V):** O conteúdo do livro (a informação semântica real da palavra).
+
+O modelo calcula a similaridade entre **Q** e **K** para decidir quanto de **V** ele deve "absorver" de cada palavra da frase para formar o contexto.
+
+---
+
 ## 🛠️ Guia de Execução Passo a Passo
 
 Siga estas instruções para configurar o ambiente e rodar os códigos de demonstração.
@@ -26,7 +42,7 @@ Se quiser baixar somente esta pasta, sem o restante do repositório, use o **spa
 
 ```bash
 # 1. Clone o repositório sem baixar os arquivos ainda
-git clone --filter=blob:none --no-checkout <url-do-repositorio> ia-generativa
+git clone --filter=blob:none --no-checkout https://github.com/lucasvpimentel/curso-ia-generativa-dc ia-generativa
 cd ia-generativa
 
 # 2. Ative o sparse-checkout e defina a pasta desejada
@@ -36,10 +52,6 @@ git sparse-checkout set "Aula 1"
 # 3. Finalize o checkout
 git checkout main
 ```
-
-Após esses comandos, somente a pasta `Aula 1/` estará disponível localmente.
-
----
 
 ### 1. Configuração do Ambiente (Setup)
 
@@ -60,39 +72,42 @@ pip install -r requirements.txt
 
 ### 2. Executando o Script de Geração (Predição de Próximo Token)
 
-Este script demonstra como um modelo "completa" frases de forma probabilística.
+Este script demonstra como o modelo GPT-2 "completa" frases de forma probabilística.
 
 ```bash
 # Com o ambiente ativado, execute:
 python scripts/predicao_proximo_token.py
 ```
 
-*   **O que esperar:** Na primeira vez, o script baixará cerca de 500MB de dados (pesos do GPT-2). Após o download, ele pedirá para você digitar uma frase em inglês. Experimente frases como *"The future of tech is"* ou *"Machine Learning can"*.
-
 ---
 
 ### 3. Executando o Notebook (Embeddings)
 
-O notebook permite visualizar como as palavras são transformadas em vetores matemáticos.
+O notebook permite visualizar como as palavras são transformadas em vetores matemáticos usando o BERT.
 
 **Opção A: No VS Code (Recomendado)**
 1. Abra o arquivo `notebooks/01_bert_e_embeddings.ipynb`.
 2. No canto superior direito, clique em **"Select Kernel"**.
 3. Escolha **"Python Environments..."** e selecione o ambiente que aponta para o seu `.venv`.
-4. Clique em "Run All" ou execute célula por célula.
 
 **Opção B: Via Jupyter Lab (Navegador)**
 ```bash
-# Execute no terminal:
 jupyter lab
 ```
-Isso abrirá uma interface no seu navegador. Navegue até a pasta `notebooks` e execute o arquivo.
 
 ---
 
 ## 💡 Recomendações e Observações Importantes
 
-1.  **Primeira Execução e Internet:** Tanto o script quanto o notebook fazem download de modelos da nuvem (Hugging Face) na primeira vez que são rodados. Certifique-se de ter uma conexão estável. Após o primeiro download, eles funcionarão offline.
-2.  **Idioma dos Modelos:** O BERT e o GPT-2 utilizados nestes exemplos foram treinados majoritariamente em **inglês**. Para melhores resultados, utilize prompts em inglês.
-3.  **Memória RAM:** Os modelos utilizados são versões "base" (leves), consumindo cerca de 1GB a 1.5GB de RAM. Eles rodam tranquilamente em computadores modernos sem necessidade de placa de vídeo (GPU) dedicada.
-4.  **Uso em Aula:** Recomendamos rodar o script de predição pelo menos uma vez antes da aula para que os alunos não percam tempo esperando o download dos modelos durante a explicação.
+1.  **Primeira Execução e Internet:** Tanto o script quanto o notebook fazem download de modelos da nuvem (Hugging Face) na primeira vez que são rodados.
+2.  **Idioma dos Modelos:** O BERT e o GPT-2 utilizados nestes exemplos foram treinados majoritariamente em **inglês**.
+3.  **Memória RAM:** Os modelos rodam tranquilamente em computadores modernos (consomem ~1.5GB de RAM) sem necessidade de GPU dedicada.
+
+---
+
+## 📚 Referências Teóricas e Científicas
+
+*   **Transformer (Base):** Vaswani, A. et al. (2017). [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762).
+*   **BERT (Embeddings):** Devlin, J. et al. (2018). [*BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*](https://arxiv.org/abs/1810.04805).
+*   **GPT-2 (Geração):** Radford, A. et al. (2019). [*Language Models are Unsupervised Multi-task Learners*](https://openai.com/blog/better-language-models/).
+*   **Didática:** [The Illustrated Transformer — Jay Alammar](https://jalammar.github.io/illustrated-transformer/).
