@@ -1,0 +1,129 @@
+/* Reset básico de CSS para remover margens e preenchimentos padrão dos navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Definindo variáveis de cores para o tema Dark Neumorphism */
+:root {
+    --bg-color: #2b2b2b;          /* Cor de fundo principal escura */
+    --text-color: #e0e0e0;        /* Cor do texto clara para contraste */
+    --accent-color: #ff6b6b;      /* Cor de destaque para botões importantes como 'C' ou '=' */
+    
+    /* Configurações de sombras para o efeito Neumorphism */
+    --shadow-light: #383838;      /* Sombra clara (canto superior esquerdo) */
+    --shadow-dark: #1e1e1e;       /* Sombra escura (canto inferior direito) */
+}
+
+/* Estilo do corpo da página: centraliza a calculadora vertical e horizontalmente */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilo do container da calculadora (efeito de "painel" Neumórfico) */
+.calculator {
+    width: 340px;
+    padding: 25px;
+    border-radius: 20px;
+    background: var(--bg-color);
+    /* Sombra dupla que cria o efeito de extrusão 3D na superfície */
+    box-shadow:  10px 10px 20px var(--shadow-dark),
+                -10px -10px 20px var(--shadow-light);
+}
+
+/* Estilo do visor superior onde aparecem os números */
+.display {
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: var(--bg-color);
+    border-radius: 10px;
+    text-align: right; /* Números alinhados à direita */
+    /* Sombra invertida (inset) para dar impressão de tela "afundada" */
+    box-shadow: inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--shadow-light);
+    overflow: hidden; /* Evita que números muito longos saiam do quadro */
+    word-break: break-all;
+}
+
+/* Estilo para os cálculos anteriores menores no topo do visor */
+.previous-operand {
+    color: #999;
+    font-size: 14px;
+    min-height: 18px;
+    margin-bottom: 5px;
+}
+
+/* Estilo do número principal no visor */
+.current-operand {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+/* Organiza os botões em uma grade 4x5 */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px; /* Espaço entre os botões */
+}
+
+/* Estilo base para todos os botões */
+.btn {
+    border: none;
+    outline: none;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 22px;
+    padding: 15px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* Efeito de extrusão Neumórfico similar ao do painel, mas menor */
+    box-shadow:  5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+}
+
+/* Efeito ao pressionar o botão: a sombra muda para inset (afundado) */
+.btn:active {
+    box-shadow: inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+    color: var(--accent-color); /* Muda levemente a cor para indicar clique */
+}
+
+/* Modificadores para botões específicos */
+.btn-operation {
+    color: #4facfe; /* Cor especial para operadores matemáticos */
+    font-weight: 600;
+}
+
+/* Classe auxiliar para botões que ocupam duas colunas da grade */
+.span-two {
+    grid-column: span 2;
+}
+
+.btn-clear {
+    color: var(--accent-color); /* Destaque em vermelho/coral para o botão de limpar */
+    font-weight: 600;
+}
+
+.btn-equals {
+    background: #4facfe; /* Fundo azul para o botão de igualdade destacá-lo */
+    color: white;
+    /* Sombras baseadas na nova cor de fundo */
+    box-shadow:  5px 5px 10px rgba(0, 0, 0, 0.2),
+                -5px -5px 10px rgba(255, 255, 255, 0.1);
+}
+
+.btn-equals:active {
+    background: #3988d0;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.3),
+                inset -4px -4px 8px rgba(255,255,255,0.1);
+    color: white;
+}

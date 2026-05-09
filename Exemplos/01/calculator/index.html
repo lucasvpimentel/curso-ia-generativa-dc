@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Define a codificação de caracteres como UTF-8 para suportar acentos e caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Garante que a página seja renderizada corretamente em dispositivos móveis e adapte-se à largura da tela -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Neumorphism</title>
+    <!-- Importa a fonte 'Inter' do Google Fonts para um visual mais limpo e moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Vincula o arquivo CSS externo -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Container principal da calculadora -->
+    <div class="calculator">
+        <!-- Área do visor da calculadora -->
+        <div class="display">
+            <!-- Div para mostrar as operações anteriores (ex: '2 + 2') -->
+            <div class="previous-operand" id="previous-operand"></div>
+            <!-- Div para mostrar o número atual sendo digitado ou o resultado -->
+            <div class="current-operand" id="current-operand">0</div>
+        </div>
+
+        <!-- Grade de botões numéricos e de operações -->
+        <div class="buttons-grid">
+            <!-- O botão de limpar ocupa duas colunas ('span-two' é uma classe no CSS para isso) -->
+            <button class="btn btn-clear span-two" id="clear">C</button>
+            <button class="btn btn-operation" data-action="delete">⌫</button>
+            <button class="btn btn-operation" data-action="divide">÷</button>
+
+            <button class="btn btn-number" data-number>7</button>
+            <button class="btn btn-number" data-number>8</button>
+            <button class="btn btn-number" data-number>9</button>
+            <button class="btn btn-operation" data-action="multiply">×</button>
+
+            <button class="btn btn-number" data-number>4</button>
+            <button class="btn btn-number" data-number>5</button>
+            <button class="btn btn-number" data-number>6</button>
+            <button class="btn btn-operation" data-action="subtract">−</button>
+
+            <button class="btn btn-number" data-number>1</button>
+            <button class="btn btn-number" data-number>2</button>
+            <button class="btn btn-number" data-number>3</button>
+            <button class="btn btn-operation" data-action="add">+</button>
+
+            <!-- O número zero pode ocupar duas colunas ou apenas uma, vamos deixar padronizado -->
+            <button class="btn btn-number span-two" data-number>0</button>
+            <button class="btn btn-number" data-number>.</button>
+            <button class="btn btn-equals" id="equals">=</button>
+        </div>
+    </div>
+
+    <!-- Vincula o arquivo JavaScript externo com a lógica da calculadora -->
+    <script src="script.js"></script>
+</body>
+</html>
